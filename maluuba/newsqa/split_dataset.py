@@ -40,8 +40,7 @@ def split_data(dataset_path, output_dir_path='split_data'):
         # FIXME Soon, if data was tokenized first, then it won't have answer_char_ranges, so we should check something else.
         # See the FIXME in the tokenizer for what field to check.
         answer_char_ranges = row.answer_char_ranges.split('|')
-        none_count = answer_char_ranges.count('None')
-        if none_count == len(answer_char_ranges):
+        if (none_count := answer_char_ranges.count('None')) == len(answer_char_ranges):
             continue
         if story_id in train_story_ids:
             train_data.append(row)

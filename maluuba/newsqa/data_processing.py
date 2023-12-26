@@ -469,9 +469,8 @@ class NewsQaDataset(object):
                                 mininterval=2, unit_scale=True, unit='questions',
                                 desc="Categorizing questions"):
             q = row['question']
-            split = q.split()
             # Ignore empty questions, they shouldn't happen.
-            if split:
+            if split := q.split():
                 # Use the first token as the question type.
                 question_type = split[0].lower()
                 result[question_type] += 1
@@ -614,8 +613,7 @@ class NewsQaDataset(object):
                              total=len(self.dataset),
                              mininterval=2, unit_scale=True, unit=" questions",
                              desc="Building json"):
-            questions = cache.get(row.story_id)
-            if questions is None:
+            if (questions := cache.get(row.story_id)) is None:
                 questions = []
                 datum = dict(storyId=row.story_id,
                              type=_get_data_type(row.story_id),

@@ -175,15 +175,13 @@ def tokenize(cnn_stories='cnn_stories.tgz', csv_dataset='newsqa-data-v1.csv',
 
     cmd = 'javac -classpath %s %s' % (classpath, os.path.join(dir_name, 'TokenizerSplitter.java'))
     logger.info("Running `%s`", cmd)
-    exit_status = os.system(cmd)
-    if exit_status:
+    if exit_status := os.system(cmd):
         sys.exit(exit_status)
 
     cmd = 'java -classpath %s TokenizerSplitter %s > %s' % (
         classpath, packed_filename, unpacked_filename)
     logger.info("Running `%s`\nThe warnings below are normal.", cmd)
-    exit_status = os.system(cmd)
-    if exit_status:
+    if exit_status := os.system(cmd):
         sys.exit(exit_status)
 
     os.remove(packed_filename)
